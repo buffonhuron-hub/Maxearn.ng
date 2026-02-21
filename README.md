@@ -1,0 +1,2 @@
+# Maxearn.ng
+Earning platform
