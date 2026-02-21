@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MaxEarn Dashboard</title>
+<style>
+:root {
+--primary:#6366f1;
+--secondary:#4f46e5;
+--bg:#f5f7ff;
+--text:#333;
+--white:#fff;
+}
+
+body{
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+background:var(--bg);
+}
+
+/* LOGIN / REGISTER */
+#loginPage, #registerPage {
+    display: none;
+    max-width: 400px;
+    margin: 50px auto;
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+    text-align:center;
+}
+
+#loginPage input, #registerPage input {
+    width:85%;
+    padding:8px;
+    margin:8px 0;
+    border-radius:5px;
+    border:1px solid #ccc;
+}
+
+#loginPage button, #registerPage button {
+    width:90%;
+    padding:8px;
+    margin-top:8px;
+    border:none;
+    background:var(--primary);
+    color:white;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+/* NAVBAR */
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px 15px;
+background:var(--white);
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+.logo{
+font-size:20px;
+font-weight:bold;
+color:var(--primary);
+}
+
+.navbar button{
+background:var(--primary);
+border:none;
+padding:8px 14px;
+color:white;
+border-radius:5px;
+cursor:pointer;
+font-size:14px;
+}
+
+/* HERO */
+.hero{
+text-align:center;
+padding:30px 15px;
+}
+
+.hero h1{
+font-size:24px;
+}
+
+/* BALANCE CARD */
+.balance-card{
+background:linear-gradient(45deg,#6366f1,#4f46e5);
+color:white;
+padding:20px;
+margin:15px;
+border-radius:12px;
+text-align:center;
+}
+
+.balance-card h2{ margin:0; }
+.balance-card h3{ margin:5px 0; }
+
+/* FEATURES */
+.features{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:15px;
+padding:15px;
+}
+
+.card{
+background:white;
+padding:15px;
+border-radius:10px;
+box-shadow:0 2px 5px rgba(0,0,0,0.1);
+transition:.3s;
+}
+
+.card:hover{ transform:translateY(-3px); }
+
+.card button{
+margin-top:8px;
+width:90%;
+padding:8px;
+background:var(--primary);
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+font-size:14px;
+}
+
+/* TASK */
+.task{
+background:white;
+margin:15px;
+padding:15px;
+border-radius:10px;
+}
+
+.task-item{
+display:flex;
+justify-content:space-between;
+margin-bottom:8px;
+}
+
+.task-item button{
+background:green;
+color:white;
+border:none;
+padding:5px 10px;
+border-radius:4px;
+cursor:pointer;
+font-size:13px;
+}
+
+/* UPGRADE PAGE */
+#upgradePage {
+display: none;
+max-width: 480px;
+margin: 40px auto;
+background: #fff;
+padding: 25px;
+border-radius: 10px;
+box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+text-align: center;
+}
+
+#upgradePage h1 {
+color: var(--primary);
+margin-bottom: 15px;
+}
+
+#upgradePage button {
+width:85%;
+padding:10px;
+margin:10px 0;
+border: none;
+border-radius: 6px;
+cursor: pointer;
+background: var(--primary);
+color: white;
+font-size:15px;
+}
+
+/* WITHDRAW PAGE */
+#withdrawPage {
+display:none;
+max-width:400px;
+margin:40px auto;
+background:white;
+padding:25px;
+border-radius:10px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+text-align:center;
+}
+
+#withdrawPage input {
+width:85%;
+padding:8px;
+margin:8px 0;
+border-radius:5px;
+border:1px solid #ccc;
+}
+
+#withdrawPage button {
+width:90%;
+padding:10px;
+margin:10px 0;
+border:none;
+border-radius:6px;
+cursor:pointer;
+background:var(--primary);
+color:white;
+font-size:15px;
+}
+
+/* ADMIN PANEL */
+#adminPage {
+display:none;
+max-width:500px;
+margin:40px auto;
+background:#fff;
+padding:25px;
+border-radius:10px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+text-align:center;
+}
+
+#adminPage h1 { color:var(--primary); margin-bottom:15px; }
+#adminPage input { width:85%; padding:8px; margin:8px 0; border-radius:5px; border:1px solid #ccc; }
+#adminPage button { width:90%; padding:10px; margin:8px 0; border:none; border-radius:6px; cursor:pointer; background:var(--primary); color:white; font-size:14px; }
+
+/* FOOTER */
+footer {
+background: var(--white);
+color: var(--text);
+padding: 18px;
+text-align: center;
+box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+border-top: 1px solid #ddd;
+}
+
+footer p { margin: 5px 0; }
+footer p:first-child { font-weight: bold; color: var(--primary);}
+footer a { color: var(--primary); text-decoration:none; }
+footer a:hover { text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<!-- LOGIN PAGE -->
+<div id="loginPage">
+<h1>Welcome to MaxEarn</h1>
+<h2>Login</h2>
+<input type="email" id="loginEmail" placeholder="Email" required>
+<input type="password" id="loginPass" placeholder="Password" required>
+<button onclick="login()">Login</button>
+<p>Don't have an account? <a href="#" onclick="showRegister()">Register</a></p>
+</div>
+
+<!-- REGISTER PAGE -->
+<div id="registerPage">
+<h1>Welcome to MaxEarn</h1>
+<h2>Register</h2>
+<input type="email" id="regEmail" placeholder="Email" required>
+<input type="password" id="regPass" placeholder="Password" required>
+<button onclick="register()">Register</button>
+<p>Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" style="display:none;">
+<div class="navbar">
+<div class="logo">MaxEarn</div>
+<button onclick="showUpgradePage()">Upgrade Rank</button>
+<button onclick="showWithdrawPage()">Withdraw</button>
+<button onclick="logout()">Logout</button>
+</div>
+
+<div class="hero">
+<h1>Welcome Back 👋</h1>
+<p>Complete Tasks And Earn Money</p>
+</div>
+
+<div class="balance-card">
+<h3>Your Balance</h3>
+<h2 id="balance">₦1000</h2>
+<h3 id="rankDisplay">Rank: Gold</h3>
+<h3>Your 6-digit Access Code: <span id="userCode"></span></h3>
+<p style="color:red; font-size:12px;">Do not share your 6-digit code with anyone.</p>
+</div>
+
+<div class="features">
+<div class="card">
+<h3>Daily Bonus</h3>
+<p>Claim your daily reward</p>
+<button onclick="claimDaily()">Claim</button>
+</div>
+
+<div class="card">
+<h3>Watch Ads</h3>
+<p>Watch ad and earn (₦100, once)</p>
+<button onclick="watchAd()">Watch Ad</button>
+</div>
+
+<div class="card">
+<h3>Referral</h3>
+<p>Invite friends</p>
+<button onclick="inviteFriend()">Referral ₦50</button>
+</div>
+</div>
+
+<div class="task">
+<h3>Tasks</h3>
+<div class="task-item">
+<p>Follow Telegram</p>
+<button onclick="earn(100)">₦100</button>
+</div>
+
+<div class="task-item">
+<p>Join WhatsApp Channel</p>
+<button onclick="joinWhatsapp()">₦100</button>
+</div>
+
+<div class="task-item">
+<p>Follow Instagram</p>
+<button onclick="earn(100)">₦100</button>
+</div>
+</div>
+
+<footer>
+<p>MaxEarn © 2026</p>
+<p>All rights reserved | <a href="#">Terms & Conditions</a></p>
+</footer>
+</div>
+
+<!-- UPGRADE PAGE -->
+<div id="upgradePage">
+<h1>Upgrade Your Rank</h1>
+<p id="upgradeMsg">Current rank: Gold</p>
+<button onclick="buySilver()">Upgrade to Silver - ₦2000</button>
+<button onclick="buyDiamond()">Upgrade to Diamond - ₦2000</button>
+<button onclick="confirmPayment()">I've made the payment</button>
+<button onclick="backToDashboard()">Back to Dashboard</button>
+<div id="paymentInfo" style="margin-top:20px; display:block; text-align:left;">
+<h3>Payment Info</h3>
+<p>Account Number: 2054598735</p>
+<p>Name: CHIKEZIE CHISOM KINGSLEY</p>
+<p>Bank: KUDA BANK</p>
+<p>Pay and send receipt to customer care via WhatsApp or Email to verify your payment</p>
+<p>Customer service number: +2349163386884</p>
+<p>Email: kingsleychisomchikezie@gmail.com</p>
+<p style="color:red; font-size:12px;">Do not share your 6-digit code with anyone.</p>
+</div>
+</div>
+
+<!-- WITHDRAW PAGE -->
+<div id="withdrawPage">
+<h2>Withdraw Funds</h2>
+<input type="number" id="withdrawAmount" placeholder="Enter amount">
+<button onclick="processWithdraw()">Withdraw</button>
+<p id="withdrawMsg" style="color:green; margin-top:15px;"></p>
+<button onclick="backToDashboard()">Back</button>
+<div style="margin-top:20px; text-align:left;">
+<h3>Customer Service</h3>
+<p>WhatsApp: +2349163386884</p>
+<p>Email: kingsleychisomchikezie@gmail.com</p>
+<p style="color:red; font-size:12px;">Do not share your 6-digit code with anyone.</p>
+</div>
+</div>
+
+<!-- ADMIN PAGE -->
+<div id="adminPage">
+<h1>Admin Panel</h1>
+<input type="password" id="adminPassword" placeholder="Enter admin password">
+<button onclick="accessAdmin()">Login</button>
+
+<div id="adminSection" style="display:none;">
+<h3>Approve User Payment</h3>
+<input type="text" id="userAccessCode" placeholder="Enter user's 6-digit code">
+<button onclick="approvePayment()">Approve Payment / Upgrade Rank</button>
+<button onclick="closeAdminPanel()">Close Admin Panel</button>
+</div>
+</div>
+
+<script>
+let balance = 0;
+let rank = "Gold";
+let dailyClaimed = false;
+let adWatched = false;
+let pendingPayment = false;
+let userCode = 0;
+
+// LOGIN / REGISTER
+function showLogin(){ document.getElementById("loginPage").style.display="block"; document.getElementById("registerPage").style.display="none"; document.getElementById("dashboard").style.display="none"; document.getElementById("upgradePage").style.display="none"; document.getElementById("withdrawPage").style.display="none"; }
+function showRegister(){ document.getElementById("loginPage").style.display="none"; document.getElementById("registerPage").style.display="block"; document.getElementById("dashboard").style.display="none"; document.getElementById("upgradePage").style.display="none"; document.getElementById("withdrawPage").style.display="none"; }
+function register(){ 
+const email=document.getElementById("regEmail").value; 
+const pass=document.getElementById("regPass").value; 
+if(!email||!pass){alert("Please fill in all fields"); return;} 
+let users=JSON.parse(localStorage.getItem("users")||"{}"); 
+if(users[email]){alert("User already exists"); return;} 
+userCode = Math.floor(100000 + Math.random()*900000); // 6-digit code
+users[email]={password:pass,balance:1000,rank:"Gold",dailyClaimed:false,adWatched:false, accessCode:userCode}; 
+localStorage.setItem("users",JSON.stringify(users)); 
+localStorage.setItem("loggedInUser",email); 
+alert("Account created!"); 
+showDashboard(); 
+}
+
+function login(){ 
+const email=document.getElementById("loginEmail").value; 
+const pass=document.getElementById("loginPass").value; 
+let users=JSON.parse(localStorage.getItem("users")||"{}"); 
+if(users[email] && users[email].password===pass){ 
+localStorage.setItem("loggedInUser",email); 
+alert("Logged in!"); 
+showDashboard(); 
+} else{ alert("Invalid credentials"); } 
+}
+
+// DASHBOARD
+function showDashboard(){ 
+document.getElementById("loginPage").style.display="none"; 
+document.getElementById("registerPage").style.display="none"; 
+document.getElementById("dashboard").style.display="block"; 
+document.getElementById("upgradePage").style.display="none"; 
+document.getElementById("withdrawPage").style.display="none"; 
+loadUser(); 
+}
+
+function showUpgradePage(){ 
+document.getElementById("dashboard").style.display="none"; 
+document.getElementById("upgradePage").style.display="block"; 
+document.getElementById("withdrawPage").style.display="none"; 
+document.getElementById("paymentInfo").style.display="block"; 
+document.getElementById("upgradeMsg").innerText=`Current rank: ${rank}`; 
+}
+
+function showWithdrawPage(){ 
+document.getElementById("dashboard").style.display="none"; 
+document.getElementById("upgradePage").style.display="none"; 
+document.getElementById("withdrawPage").style.display="block"; 
+}
+
+// LOAD & SAVE
+function loadUser(){ 
+const email=localStorage.getItem("loggedInUser"); 
+if(!email) return; 
+const users=JSON.parse(localStorage.getItem("users")||"{}"); 
+balance=users[email].balance; 
+rank=users[email].rank; 
+dailyClaimed=users[email].dailyClaimed||false; 
+adWatched=users[email].adWatched||false; 
+userCode = users[email].accessCode;
+document.getElementById("balance").innerText="₦"+balance; 
+document.getElementById("rankDisplay").innerText="Rank: "+rank; 
+document.getElementById("userCode").innerText = userCode;
+}
+
+function saveUser(){ 
+const email=localStorage.getItem("loggedInUser"); 
+if(!email) return; 
+let users=JSON.parse(localStorage.getItem("users")||"{}"); 
+users[email].balance=balance; 
+users[email].rank=rank; 
+users[email].dailyClaimed=dailyClaimed; 
+users[email].adWatched=adWatched;
+users[email].accessCode = userCode;
+localStorage.setItem("users",JSON.stringify(users)); 
+}
+
+// DAILY / ADS / TASKS
+function claimDaily(){ if(dailyClaimed){alert("Daily bonus already claimed"); return;} if(rank==="Gold"){addMoney(50);} else if(rank==="Silver"){addMoney(500);} else if(rank==="Diamond"){addMoney(2000);} dailyClaimed=true; saveUser(); alert(`Daily bonus claimed for ${rank} rank`);}
+function watchAd(){ if(adWatched){ alert("Ad reward already claimed"); return;} adWatched=true; saveUser(); window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ","_blank"); alert("₦100 added for watching ad"); addMoney(100);}
+function earn(amount){ addMoney(amount); alert(`₦${amount} added`);}
+function joinWhatsapp(){ addMoney(100); alert("₦100 added for WhatsApp task"); window.open("https://whatsapp.com/channel/0029VbBO4Vv1Xquebx3ihw2d","_blank"); }
+function inviteFriend(){ const email=localStorage.getItem("loggedInUser"); if(!email) return alert("Login required"); let users=JSON.parse(localStorage.getItem("users")||"{}"); const refCode=users[email].refCode || Math.floor(Math.random()*10000); users[email].refCode=refCode; localStorage.setItem("users",JSON.stringify(users)); const referralLink=window.location.origin+window.location.pathname+"?ref="+refCode; addMoney(50); alert("Referral link copied! Share:\n"+referralLink); }
+
+// ADD MONEY
+function addMoney(amount){ balance+=amount; saveUser(); document.getElementById("balance").innerText="₦"+balance; }
+
+// WITHDRAW
+function processWithdraw(){ const amount=parseInt(document.getElementById("withdrawAmount").value); if(isNaN(amount)||amount<=0){ alert("Enter valid amount"); return;} if(rank==="Gold"){ alert("You must upgrade rank to withdraw"); return;} if(amount>balance){ alert("Insufficient balance"); return;} balance-=amount; saveUser(); document.getElementById("balance").innerText="₦"+balance; document.getElementById("withdrawMsg").innerHTML=`<span>Send your account number via WhatsApp or Email for payment</span>`; }
+
+// PURCHASE / PAYMENT
+function buySilver(){ pendingPayment=true; document.getElementById("paymentInfo").style.display="block"; }
+function buyDiamond(){   
+if(rank!=="Silver"){ alert("Buy Silver first"); return; }   
+pendingPayment=true; 
+document.getElementById("paymentInfo").style.display="block";   
+}
+
+function confirmPayment(){  
+if(!pendingPayment){ alert("No payment pending"); return; }  
+alert("Please wait until payment is confirmed by admins");  
+pendingPayment=false;  
+showDashboard();  
+rank=(rank==="Gold" ? "Silver" : "Diamond");  
+saveUser();  
+}
+
+// LOGOUT
+function logout(){  
+localStorage.removeItem("loggedInUser");  
+alert("Logged out");  
+showLogin();  
+}
+
+// BACK TO DASHBOARD
+function backToDashboard(){ showDashboard(); }
+
+// ADMIN PANEL ACCESS
+function accessAdmin(){
+const pass = document.getElementById("adminPassword").value;
+if(pass==="09163386884"){
+document.getElementById("adminSection").style.display="block";
+alert("Admin access granted!");
+} else {
+alert("Incorrect admin password");
+}
+}
+
+function approvePayment(){
+const code = document.getElementById("userAccessCode").value.trim();
+if(!code){ alert("Enter a 6-digit user code"); return; }
+let users = JSON.parse(localStorage.getItem("users")||"{}");
+let found = false;
+for(let email in users){
+if(users[email].accessCode==code){
+users[email].rank = (users[email].rank==="Gold" ? "Silver" : "Diamond");
+localStorage.setItem("users", JSON.stringify(users));
+alert(`User ${email} rank upgraded successfully!`);
+found = true;
+break;
+}
+}
+if(!found){ alert("User code not found"); }
+}
+
+function closeAdminPanel(){
+document.getElementById("adminSection").style.display="none";
+document.getElementById("adminPassword").value="";
+}
+
+// ON PAGE LOAD
+document.addEventListener("DOMContentLoaded",()=>{
+const email=localStorage.getItem("loggedInUser");
+if(email){ showDashboard(); } else { showLogin(); }
+});
+</script>
+</body>
+</html>
